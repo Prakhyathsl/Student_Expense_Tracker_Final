@@ -3899,3 +3899,152 @@ body.dark-mode .savings-goal-bottom {
         width: calc(100% - 75px);
     }
 }
+
+/* ============================================================
+   ACTION LOADING INDICATORS
+============================================================ */
+
+button.action-loading {
+    position: relative;
+    pointer-events: none;
+    cursor: wait !important;
+}
+
+button.action-loading > * {
+    flex-shrink: 0;
+}
+
+.loader {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ADD: three bouncing dots */
+.loader-add {
+    width: 20px;
+    height: 18px;
+    gap: 3px;
+}
+
+.loader-add span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: addBounce 0.7s infinite ease-in-out;
+}
+
+.loader-add span:nth-child(2) { animation-delay: 0.12s; }
+.loader-add span:nth-child(3) { animation-delay: 0.24s; }
+
+@keyframes addBounce {
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.55; }
+    40% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* EDIT: animated bars */
+.loader-edit {
+    width: 20px;
+    height: 18px;
+    gap: 2px;
+    align-items: flex-end;
+}
+
+.loader-edit span {
+    width: 4px;
+    height: 7px;
+    border-radius: 3px;
+    background: currentColor;
+    animation: editBars 0.8s infinite ease-in-out;
+}
+
+.loader-edit span:nth-child(2) { height: 11px; animation-delay: 0.12s; }
+.loader-edit span:nth-child(3) { height: 15px; animation-delay: 0.24s; }
+
+@keyframes editBars {
+    0%, 100% { transform: scaleY(0.55); opacity: 0.55; }
+    50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* DELETE: rotating ring */
+.loader-delete {
+    width: 18px;
+    height: 18px;
+}
+
+.loader-delete span {
+    width: 15px;
+    height: 15px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: deleteSpin 0.65s linear infinite;
+}
+
+@keyframes deleteSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* DELETE ICON: compact spinner for table/goal icon buttons */
+.loader-trash {
+    width: 15px;
+    height: 15px;
+}
+
+.loader-trash span {
+    width: 14px;
+    height: 14px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: trashSpin 0.55s linear infinite;
+}
+
+@keyframes trashSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* SAVE: pulsing circle */
+.loader-save {
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    position: relative;
+    animation: savePulse 1s ease-in-out infinite;
+}
+
+.loader-save::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    opacity: 0.6;
+}
+
+@keyframes savePulse {
+    0%, 100% { transform: scale(0.78); opacity: 0.65; }
+    50% { transform: scale(1); opacity: 1; }
+}
+
+button.action-loading-add,
+button.action-loading-edit,
+button.action-loading-save {
+    min-width: 130px;
+}
+
+button.action-loading-delete {
+    min-width: 105px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loader-add span,
+    .loader-edit span,
+    .loader-delete span,
+    .loader-trash span,
+    .loader-save {
+        animation-duration: 1.5s;
+    }
+}
