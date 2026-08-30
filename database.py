@@ -134,9 +134,15 @@ def init_db():
 
 def _rows(cur):
     rows = cur.fetchall()
-    if using_postgres():
-        return [dict(row) for row in rows]
-    return [dict(row) for row in rows]
+
+    # Get column names from the query
+    columns = [description[0] for description in cur.description]
+
+    # Convert each database row into a normal Python dictionary
+    return [
+        dict(zip(columns, row))
+        for row in rows
+    ]
 
 
 def get_expenses():
