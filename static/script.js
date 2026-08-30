@@ -2741,7 +2741,10 @@ async function loadDashboard() {
 
         const response =
             await fetch(
-                "/api/stats"
+                "/api/stats",
+                {
+                    cache: "no-store"
+                }
             );
 
 
@@ -2913,12 +2916,32 @@ function updateDashboardCards(
     const paymentTotals =
         stats.payment_totals || {};
 
+    // Calculate Cash directly from the current expense list as the
+    // source of truth. This prevents the Cash card from becoming
+    // stale when the stats response is cached or uses a slightly
+    // different payment-method spelling/capitalization.
+    const cashFromExpenses =
+        Array.isArray(allExpenses)
+            ? allExpenses.reduce(function (sum, expense) {
+                const method = String(
+                    expense.payment_method || ""
+                ).trim().toLowerCase();
 
+                return method === "cash"
+                    ? sum + (Number(expense.amount) || 0)
+                    : sum;
+            }, 0)
+            : 0;
+
+    const cashFromStats =
+        Number(paymentTotals["Cash"] || 0);
+
+    // Prefer the freshly loaded expense data. If it is not available,
+    // fall back to the backend stats value.
     const cash =
-        Number(
-            paymentTotals["Cash"] || 0
-        );
-
+        Array.isArray(allExpenses)
+            ? cashFromExpenses
+            : cashFromStats;
 
     const total =
         Number(
