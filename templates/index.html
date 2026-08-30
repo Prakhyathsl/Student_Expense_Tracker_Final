@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Personal Expense Tracker
+    </title>
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- =====================================================
+         CSS
+    ====================================================== -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+     APP
+========================================================= -->
+
+    <div class="app">
+
+
+        <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+        <aside class="sidebar">
+
+
+            <!-- LOGO -->
+
+            <div class="logo">
+
+                <div class="logo-icon">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+
+                <div class="logo-text">
+                    <span>Expense</span>
+                    <strong>Tracker</strong>
+                </div>
+
+            </div>
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="sidebar-nav">
+
+
+                <button class="nav-item active" data-page="dashboard">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </button>
+
+
+                <button class="nav-item" data-page="expenses">
+
+                    <i class="fa-solid fa-list"></i>
+
+                    <span>
+                        All Expenses
+                    </span>
+
+                </button>
+
+
+                <button class="nav-item" data-page="add-expense">
+
+                    <i class="fa-solid fa-circle-plus"></i>
+
+                    <span>
+                        Add Expense
+                    </span>
+
+                </button>
+
+
+                <button class="nav-item" data-page="categories">
+
+                    <i class="fa-solid fa-tags"></i>
+
+                    <span>
+                        Categories
+                    </span>
+
+                </button>
+
+
+                <button class="nav-item" data-page="academic">
+                    <i class="fa-solid fa-graduation-cap"></i>
+
+                    <span>
+                        Academic Year & Semester
+                    </span>
+                </button>
+<button class="nav-item" data-page="savings">
+                    <i class="fa-solid fa-piggy-bank"></i>
+                    <span>Savings</span>
+                </button>
+
+                <button class="nav-item" data-page="backup">
+
+                    <i class="fa-solid fa-cloud-arrow-down"></i>
+
+                    <span>
+                        Backup & Export
+                    </span>
+
+                </button>
+
+
+                <button class="nav-item" data-page="settings">
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    <span>
+                        Settings
+                    </span>
+
+                </button>
+
+            </nav>
+
+
+            <!-- SIDEBAR FOOTER -->
+
+            <div class="sidebar-safe">
+
+                <div class="safe-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <h3>
+                    Your data is safe
+                </h3>
+
+                <p>
+                    All your expenses are stored
+                    securely in Excel.
+                </p>
+
+            </div>
+
+        </aside>
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+        <main class="main">
+
+
+            <!-- =================================================
+             TOP HEADER
+        ================================================== -->
+
+            <header class="top-header">
+
+                <button type="button" class="menu-button" id="menuToggle" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="welcome">
+
+                    <small>
+                        Welcome back,
+                    </small>
+
+                    <h2>
+                        Personal Expense Tracker 👋
+                    </h2>
+
+                </div>
+
+
+                <!-- SEARCH -->
+
+                <div class="global-search">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input type="text" id="globalSearch" placeholder="Search expenses..." autocomplete="off">
+
+                    <span>
+                        Ctrl /
+                    </span>
+
+                </div>
+
+
+                <!-- HEADER ACTIONS -->
+
+                <div class="header-actions">
+
+
+                    <button type="button" class="header-button" id="notificationButton" title="Notifications">
+
+                        <i class="fa-regular fa-bell"></i>
+
+                    </button>
+
+
+                    <button type="button" class="header-button" id="themeToggle" title="Change theme">
+
+                        <i class="fa-solid fa-moon"></i>
+
+                    </button>
+
+
+                    <div class="profile">
+
+                        <div class="profile-avatar">
+                            P
+                        </div>
+
+                        <span>
+                            Personal
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+
+            <!-- =================================================
+             PAGE CONTAINER
+        ================================================== -->
+
+            <div class="page-container">
+
+
+                <!-- =================================================
+                 DASHBOARD
+            ================================================== -->
+
+                <section class="page active" id="page-dashboard">
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <h1>
+                                Dashboard
+                            </h1>
+
+                            <p>
+                                Overview of your expenses and
+                                spending insights
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUMMARY CARDS -->
+
+                    <div class="summary-grid">
+
+
+                        <!-- THIS MONTH -->
+
+                        <div class="summary-card">
+
+                            <div class="summary-icon purple">
+                                <i class="fa-regular fa-calendar"></i>
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    This Month
+                                </span>
+
+                                <strong id="dashboardThisMonth">
+                                    ₹0.00
+                                </strong>
+
+                                <small>
+                                    Current month spending
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- MONTHLY AVERAGE -->
+
+                        <div class="summary-card">
+
+                            <div class="summary-icon green">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Monthly Average
+                                </span>
+
+                                <strong id="dashboardMonthlyAverage">
+                                    ₹0.00
+                                </strong>
+
+                                <small>
+                                    Average per active month
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- HIGHEST EXPENSE -->
+
+                        <div class="summary-card">
+
+                            <div class="summary-icon orange">
+                                <i class="fa-solid fa-arrow-up"></i>
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Highest Expense
+                                </span>
+
+                                <strong id="dashboardHighestExpense">
+                                    ₹0.00
+                                </strong>
+
+                                <small id="dashboardHighestExpenseInfo">
+                                    No expenses yet
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CASH -->
+
+                        <div class="summary-card">
+
+                            <div class="summary-icon blue">
+                                <i class="fa-solid fa-money-bill"></i>
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Cash Spending
+                                </span>
+
+                                <strong id="dashboardCashSpending">
+                                    ₹0.00
+                                </strong>
+
+                                <small id="dashboardCashPercentage">
+                                    0% of total
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- =================================================
+                     CHARTS
+                ================================================== -->
+
+                    <div class="dashboard-grid">
+
+
+                        <!-- CATEGORY -->
+
+                        <div class="dashboard-card category-chart-card">
+
+                            <div class="card-heading">
+
+                                <div>
+
+                                    <h2>
+                                        Expenses by Category
+                                    </h2>
+
+                                    <p>
+                                        Where your money goes
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="category-chart-layout">
+
+
+                                <div class="donut-wrapper">
+
+                                    <canvas id="categoryChart"></canvas>
+
+
+                                    <div class="donut-center">
+
+                                        <span>
+                                            Total
+                                        </span>
+
+                                        <strong id="categoryChartTotal">
+                                            ₹0.00
+                                        </strong>
+
+                                        <small id="categoryChartCount">
+                                            0 Categories
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="category-legend" id="categoryLegend">
+
+                                    <div class="empty-state">
+                                        No expenses yet
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="chart-footer">
+
+                                <div>
+
+                                    <span>
+                                        Total Categories
+                                    </span>
+
+                                    <strong id="dashboardCategoryCount">
+                                        0
+                                    </strong>
+
+                                </div>
+
+                                <div>
+
+                                    <span>
+                                        Total Amount
+                                    </span>
+
+                                    <strong id="dashboardCategoryTotal">
+                                        ₹0.00
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- ACADEMIC YEAR -->
+
+                        <div class="dashboard-card">
+
+                            <div class="card-heading">
+
+                                <div>
+
+                                    <h2>
+                                        Expenses by Academic Year
+                                    </h2>
+
+                                    <p>
+                                        Compare your spending
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="bar-chart-container">
+
+                                <canvas id="yearChart"></canvas>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                 ALL EXPENSES
+            ================================================== -->
+
+                <section class="page" id="page-expenses">
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <h1>
+                                All Expenses
+                            </h1>
+
+                            <p>
+                                View and manage all your expense records
+                            </p>
+
+                        </div>
+
+
+                        <button type="button" class="primary-button" id="goAddExpense">
+
+                            <i class="fa-solid fa-plus"></i>
+
+                            Add Expense
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- FILTERS -->
+
+                    <div class="filter-card">
+
+
+                        <div class="filter-group">
+
+                            <label>
+                                Search
+                            </label>
+
+                            <div class="input-with-icon">
+
+                                <i class="fa-solid fa-magnifying-glass"></i>
+
+                                <input type="text" id="expenseSearch" placeholder="Search expenses...">
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="filter-group">
+
+                            <label>
+                                Academic Year
+                            </label>
+
+                            <select id="expenseYearFilter">
+
+                                <option value="">
+                                    All Academic Years
+                                </option>
+
+                                {% for year in academic_years %}
+
+                                <option value="{{ year }}">
+                                    {{ year }}
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="filter-group">
+
+                            <label>
+                                Semester
+                            </label>
+
+                            <select id="expenseSemesterFilter">
+
+                                <option value="">
+                                    All Semesters
+                                </option>
+
+                                {% for semester in semesters %}
+
+                                <option value="{{ semester }}">
+                                    {{ semester }}
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="filter-group">
+
+                            <label>
+                                Category
+                            </label>
+
+                            <select id="expenseCategoryFilter">
+
+                                <option value="">
+                                    All Categories
+                                </option>
+
+                                {% for category in categories %}
+
+                                <option value="{{ category }}">
+                                    {{ category }}
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <button type="button" class="secondary-button" id="clearFilters">
+                            Clear
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- EXPENSE TABLE -->
+
+                    <div class="table-card">
+
+                        <div class="table-heading">
+
+                            <div>
+
+                                <h2>
+                                    Expense Records
+                                </h2>
+
+                                <p>
+                                    <span id="expenseRecordCount">
+                                        0
+                                    </span>
+                                    records
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="table-wrapper">
+
+                            <table>
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            ID
+                                        </th>
+
+                                        <th>
+                                            Academic Year
+                                        </th>
+
+                                        <th>
+                                            Semester
+                                        </th>
+
+                                        <th>
+                                            Date
+                                        </th>
+
+                                        <th>
+                                            Category
+                                        </th>
+
+                                        <th>
+                                            Amount (₹)
+                                        </th>
+
+                                        <th>
+                                            Payment Method
+                                        </th>
+
+                                        <th>
+                                            Description
+                                        </th>
+
+                                        <th>
+                                            Actions
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody id="expenseTableBody">
+
+                                    <tr>
+
+                                        <td colspan="9" class="empty-table">
+                                            Loading expenses...
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                 ADD EXPENSE
+            ================================================== -->
+
+                <section class="page" id="page-add-expense">
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <h1>
+                                Add Expense
+                            </h1>
+
+                            <p>
+                                Add a new personal expense
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="add-expense-layout">
+
+
+                        <!-- FORM -->
+
+                        <div class="form-card">
+
+
+                            <div class="form-card-heading">
+
+                                <h2>
+                                    Expense Details
+                                </h2>
+
+                                <p>
+                                    Enter the details of your expense
+                                </p>
+
+                            </div>
+
+
+                            <form id="expenseForm" autocomplete="off">
+
+
+                                <!-- YEAR -->
+
+                                <div class="form-row">
+
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Academic Year
+                                            <span>*</span>
+                                        </label>
+
+                                        <select id="academicYear" name="academic_year" required>
+
+                                            <option value="">
+                                                Select Academic Year
+                                            </option>
+
+                                            {% for year in academic_years %}
+
+                                            <option value="{{ year }}">
+                                                {{ year }}
+                                            </option>
+
+                                            {% endfor %}
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <!-- SEMESTER -->
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Semester
+                                            <span>*</span>
+                                        </label>
+
+                                        <select id="semester" name="semester" required>
+
+                                            <option value="">
+                                                Select Semester
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- DATE + CATEGORY -->
+
+                                <div class="form-row">
+
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Date
+                                            <span>*</span>
+                                        </label>
+
+                                        <input type="text" id="expenseDate" name="date" placeholder="DD-MM-YYYY"
+                                            maxlength="10" inputmode="numeric" required>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Category
+                                            <span>*</span>
+                                        </label>
+
+                                        <select id="expenseCategory" name="category" required>
+
+                                            <option value="">
+                                                Select Category
+                                            </option>
+
+                                            {% for category in categories %}
+
+                                            <option value="{{ category }}">
+                                                {{ category }}
+                                            </option>
+
+                                            {% endfor %}
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- OTHER CATEGORY -->
+
+                                <div class="form-group hidden" id="otherCategoryGroup">
+
+                                    <label>
+                                        Enter Category
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="text" id="otherCategory" placeholder="Enter your category">
+
+                                </div>
+
+
+
+                                <!-- AMOUNT + PAYMENT -->
+
+                                <div class="form-row">
+
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Amount (₹)
+                                            <span>*</span>
+                                        </label>
+
+                                        <div class="amount-input">
+
+                                            <span>
+                                                ₹
+                                            </span>
+
+                                            <input type="number" id="expenseAmount" name="amount" placeholder="0.00"
+                                                min="0" step="0.01" required>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Payment Method
+                                            <span>*</span>
+                                        </label>
+
+                                        <select id="paymentMethod" name="payment_method" required>
+
+                                            <option value="">
+                                                Select Payment Method
+                                            </option>
+
+                                            {% for method in payment_methods %}
+
+                                            <option value="{{ method }}">
+                                                {{ method }}
+                                            </option>
+
+                                            {% endfor %}
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- DESCRIPTION -->
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Description
+                                    </label>
+
+                                    <textarea id="expenseDescription" name="description" rows="4"
+                                        placeholder="Enter expense description..."></textarea>
+
+                                </div>
+
+
+
+                                <!-- FORM ACTIONS -->
+
+                                <div class="form-actions">
+
+                                    <button type="button" class="secondary-button" id="cancelExpense">
+                                        Cancel
+                                    </button>
+
+                                    <button type="submit" class="primary-button">
+
+                                        <i class="fa-solid fa-plus"></i>
+
+                                        Add Expense
+
+                                    </button>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+
+
+                        <!-- INFO -->
+
+                        <div class="info-card">
+
+
+                            <div class="info-icon">
+
+                                <i class="fa-solid fa-wallet"></i>
+
+                            </div>
+
+
+                            <h2>
+                                Keep track of every expense
+                            </h2>
+
+
+                            <p>
+                                Add your expenses regularly to
+                                understand where your money goes.
+                            </p>
+
+
+                            <div class="info-list">
+
+                                <div>
+
+                                    <i class="fa-solid fa-file-excel"></i>
+
+                                    <span>
+                                        Data is stored in Excel
+                                    </span>
+
+                                </div>
+
+
+                                <div>
+
+                                    <i class="fa-solid fa-chart-pie"></i>
+
+                                    <span>
+                                        Dashboard updates automatically
+                                    </span>
+
+                                </div>
+
+
+                                <div>
+
+                                    <i class="fa-solid fa-pen"></i>
+
+                                    <span>
+                                        Records can be edited later
+                                    </span>
+
+                                </div>
+
+
+                                <div>
+
+                                    <i class="fa-solid fa-shield-halved"></i>
+
+                                    <span>
+                                        Your original data stays preserved
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                 CATEGORIES
+            ================================================== -->
+
+                <section class="page" id="page-categories">
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <h1>
+                                Categories
+                            </h1>
+
+                            <p>
+                                See how much you spend in each category
+                            </p>
+
+                        </div>
+
+
+                        <button type="button" class="primary-button" id="categoryAddExpense">
+
+                            <i class="fa-solid fa-plus"></i>
+
+                            Add Expense
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="category-page-grid" id="categoryCards">
+
+                        <div class="loading-card">
+                            Loading categories...
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                 ACADEMIC YEAR & SEMESTER
+            ================================================== -->
+
+                <section class="page" id="page-academic">
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <h1>
+                                Academic Year & Semester
+                            </h1>
+
+                            <p>
+                                Track spending by academic year
+                                and semester
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- YEARS -->
+
+                    <div class="section-card">
+
+                        <div class="section-heading">
+
+                            <h2>
+                                Academic Years
+                            </h2>
+
+                            <p>
+                                Total spending for each year
+                            </p>
+
+                        </div>
+
+
+                        <div class="academic-grid" id="academicYearCards">
+
+                            <div class="loading-card">
+                                Loading academic years...
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SEMESTERS -->
+
+                    <div class="section-card">
+
+                        <div class="section-heading">
+
+                            <h2>
+                                Semesters
+                            </h2>
+
+                            <p>
+                                Total spending for each semester
+                            </p>
+
+                        </div>
+
+
+                        <div class="academic-grid" id="semesterCards">
+
+                            <div class="loading-card">
+                                Loading semesters...
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =====================================================
+     SAVINGS
+====================================================== -->
+
+                <section id="page-savings" class="page">
+
+                    <!-- PAGE HEADER -->
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <h1>
+                                Savings
+                            </h1>
+
+                            <p>
+                                Track your savings goals and build better financial habits
+                            </p>
+
+                        </div>
+
+
+                        <button class="primary-button" id="addSavingsButton" type="button">
+
+                            <i class="fa-solid fa-plus"></i>
+
+                            Add Savings
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- =================================================
+         SAVINGS SUMMARY
+    ================================================== -->
+
+                    <div class="savings-summary-grid">
+
+
+                        <!-- TOTAL SAVED -->
+
+                        <div class="savings-summary-card saved-card">
+
+                            <div class="savings-summary-icon">
+
+                                <i class="fa-solid fa-piggy-bank"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Total Saved
+                                </span>
+
+                                <strong id="totalSavedAmount">
+                                    ₹0.00
+                                </strong>
+
+                                <small>
+                                    All savings across your goals
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ACTIVE GOALS -->
+
+                        <div class="savings-summary-card active-goal-card">
+
+                            <div class="savings-summary-icon">
+
+                                <i class="fa-solid fa-bullseye"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Active Goals
+                                </span>
+
+                                <strong id="activeGoalsCount">
+                                    0
+                                </strong>
+
+                                <small>
+                                    Currently saving towards
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- COMPLETED GOALS -->
+
+                        <div class="savings-summary-card completed-goal-card">
+
+                            <div class="savings-summary-icon">
+
+                                <i class="fa-solid fa-trophy"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Completed Goals
+                                </span>
+
+                                <strong id="completedGoalsCount">
+                                    0
+                                </strong>
+
+                                <small>
+                                    Successfully achieved
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+         SAVINGS GOALS
+    ================================================== -->
+
+                    <div class="panel savings-section">
+
+                        <div class="savings-section-header">
+
+                            <div>
+
+                                <h2>
+                                    Savings Goals
+                                </h2>
+
+                                <p>
+                                    Your current saving targets
+                                </p>
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+                        <div id="savingsGoalsContainer" class="savings-goals-grid">
+
+                            <div class="savings-empty">
+
+                                <i class="fa-solid fa-bullseye"></i>
+
+                                <h3>
+                                    No savings goals yet
+                                </h3>
+
+                                <p>
+                                    Create your first savings goal and start
+                                    working towards it.
+                                </p>
+
+                                <button type="button" class="primary-button" onclick="openSavingsGoalModal()">
+
+                                    <i class="fa-solid fa-plus"></i>
+
+                                    Create Savings Goal
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+         SAVINGS HISTORY
+    ================================================== -->
+
+                    <div class="panel savings-section">
+
+                        <div class="savings-section-header">
+
+                            <div>
+
+                                <h2>
+                                    Savings History
+                                </h2>
+
+                                <p>
+                                    Your recent savings transactions
+                                </p>
+
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="table-container">
+
+                            <table class="savings-history-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Date
+                                        </th>
+
+                                        <th>
+                                            Goal
+                                        </th>
+
+                                        <th>
+                                            Amount
+                                        </th>
+
+                                        <th>
+                                            Note
+                                        </th>
+
+                                        <th>
+                                            Actions
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody id="savingsHistoryBody">
+
+                                    <tr>
+
+                                        <td colspan="5" class="table-empty">
+                                            No savings recorded yet.
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+
+
+
+                </section>
+                <!-- =================================================
+                 BACKUP
+            ================================================== -->
+
+                <section class="page" id="page-backup">
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <h1>
+                                Backup & Export
+                            </h1>
+
+                            <p>
+                                Keep a backup of your expense records
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="backup-grid">
+
+
+                        <!-- DOWNLOAD -->
+
+                        <div class="backup-card">
+
+                            <div class="backup-icon purple">
+                                <i class="fa-solid fa-file-excel"></i>
+                            </div>
+
+                            <h2>
+                                Download Excel
+                            </h2>
+
+                            <p>
+                                Download all your current expense
+                                records as an Excel file.
+                            </p>
+
+
+                            <a href="/download-excel" class="primary-button">
+
+                                <i class="fa-solid fa-download"></i>
+
+                                Download Excel Backup
+
+                            </a>
+
+                        </div>
+
+
+
+                        <!-- INFORMATION -->
+
+                        <div class="backup-card">
+
+                            <div class="backup-icon green">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+
+                            <h2>
+                                Your Data
+                            </h2>
+
+                            <p>
+                                Your expense records are stored
+                                locally in the Excel file inside
+                                the data folder.
+                            </p>
+
+
+                            <div class="backup-status">
+
+                                <span>
+                                    Total Records
+                                </span>
+
+                                <strong id="backupRecordCount">
+                                    0
+                                </strong>
+
+                            </div>
+
+
+                            <div class="backup-status">
+
+                                <span>
+                                    Total Amount
+                                </span>
+
+                                <strong id="backupTotalAmount">
+                                    ₹0.00
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                 SETTINGS
+            ================================================== -->
+
+                <section class="page" id="page-settings">
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <h1>
+                                Settings
+                            </h1>
+
+                            <p>
+                                Customize your expense tracker
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="settings-card">
+
+
+                        <!-- APPEARANCE -->
+
+                        <div class="settings-section">
+
+                            <div class="settings-section-heading">
+
+                                <div class="settings-icon">
+                                    <i class="fa-solid fa-palette"></i>
+                                </div>
+
+                                <div>
+
+                                    <h2>
+                                        Appearance
+                                    </h2>
+
+                                    <p>
+                                        Change how the application looks
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="setting-row">
+
+                                <div>
+
+                                    <strong>
+                                        Dark Mode
+                                    </strong>
+
+                                    <p>
+                                        Use the dark theme throughout
+                                        the application
+                                    </p>
+
+                                </div>
+
+
+                                <label class="switch">
+
+                                    <input type="checkbox" id="darkModeSwitch">
+
+                                    <span class="slider"></span>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- DATA -->
+
+                        <div class="settings-section">
+
+                            <div class="settings-section-heading">
+
+                                <div class="settings-icon">
+                                    <i class="fa-solid fa-database"></i>
+                                </div>
+
+                                <div>
+
+                                    <h2>
+                                        Data
+                                    </h2>
+
+                                    <p>
+                                        Information about your stored data
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="setting-row">
+
+                                <div>
+
+                                    <strong>
+                                        Storage
+                                    </strong>
+
+                                    <p>
+                                        Your records are stored in Excel.
+                                    </p>
+
+                                </div>
+
+                                <span class="status-badge">
+                                    Excel
+                                </span>
+
+                            </div>
+
+
+                            <div class="setting-row">
+
+                                <div>
+
+                                    <strong>
+                                        Total Records
+                                    </strong>
+
+                                    <p>
+                                        Number of expenses currently stored
+                                    </p>
+
+                                </div>
+
+                                <strong id="settingsRecordCount">
+                                    0
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- APPLICATION -->
+
+                        <div class="settings-section">
+
+                            <div class="settings-section-heading">
+
+                                <div class="settings-icon">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </div>
+
+                                <div>
+
+                                    <h2>
+                                        Application
+                                    </h2>
+
+                                    <p>
+                                        Personal Expense Tracker
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="setting-row">
+
+                                <div>
+
+                                    <strong>
+                                        Data Location
+                                    </strong>
+
+                                    <p>
+                                        data/Expense_Tracker_Master.xlsx
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+
+    <!-- =========================================================
+     EDIT EXPENSE MODAL
+========================================================= -->
+
+    <div class="modal-overlay hidden" id="editModal">
+
+        <div class="modal">
+
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2>
+                        Edit Expense
+                    </h2>
+
+                    <p>
+                        Update your expense details
+                    </p>
+
+                </div>
+
+
+                <button type="button" class="modal-close" id="closeEditModal">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+
+            <form id="editExpenseForm">
+
+
+                <input type="hidden" id="editExpenseId">
+
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Academic Year
+                        </label>
+
+                        <select id="editAcademicYear" required>
+
+                            {% for year in academic_years %}
+
+                            <option value="{{ year }}">
+                                {{ year }}
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Semester
+                        </label>
+
+                        <select id="editSemester" required>
+
+                            <option value="">
+                                Select Semester
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Date
+                        </label>
+
+                        <input type="text" id="editDate" placeholder="DD-MM-YYYY" maxlength="10" required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Category
+                        </label>
+
+                        <input type="text" id="editCategory" required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Amount (₹)
+                        </label>
+
+                        <input type="number" id="editAmount" min="0" step="0.01" required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Payment Method
+                        </label>
+
+                        <select id="editPaymentMethod" required>
+
+                            {% for method in payment_methods %}
+
+                            <option value="{{ method }}">
+                                {{ method }}
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea id="editDescription" rows="3"></textarea>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button type="button" class="secondary-button" id="cancelEdit">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="primary-button">
+
+                        <i class="fa-solid fa-check"></i>
+
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- =====================================================
+     SAVINGS GOAL MODAL
+====================================================== -->
+
+    <div class="modal-overlay hidden" id="savingsGoalModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2>
+                        Create Savings Goal
+                    </h2>
+
+                    <p>
+                        Set a target for something you want to save for
+                    </p>
+
+                </div>
+
+
+                <button type="button" class="modal-close" onclick="closeSavingsGoalModal()">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+
+            <form id="savingsGoalForm">
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Goal Name
+                            <span>*</span>
+                        </label>
+
+                        <input type="text" id="savingsGoalName" placeholder="e.g. New Laptop" required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Target Amount (₹)
+                            <span>*</span>
+                        </label>
+
+                        <input type="number" id="savingsTargetAmount" min="1" step="0.01" placeholder="60000" required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Target Date
+                        </label>
+
+                        <input type="text" id="savingsTargetDate" maxlength="10" placeholder="DD-MM-YYYY"
+                            autocomplete="off">
+
+                        <small class="field-help">
+                            Enter date as DD-MM-YYYY
+                        </small>
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label>
+                            Description
+                        </label>
+
+                        <textarea id="savingsGoalDescription" rows="3"
+                            placeholder="What are you saving for?"></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button type="button" class="secondary-button" onclick="closeSavingsGoalModal()">
+                        Cancel
+                    </button>
+
+
+                    <button type="submit" class="primary-button">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Create Goal
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+     ADD SAVINGS MODAL
+====================================================== -->
+
+    <div class="modal-overlay hidden" id="addSavingsModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2>
+                        Add Savings
+                    </h2>
+
+                    <p>
+                        Record money you have set aside
+                    </p>
+
+                </div>
+
+
+                <button type="button" class="modal-close" onclick="closeAddSavingsModal()">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+
+            <form id="addSavingsForm">
+
+                <input type="hidden" id="selectedSavingsGoalId">
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Savings Goal
+                            <span>*</span>
+                        </label>
+
+                        <select id="savingsGoalSelect" required>
+
+                            <option value="">
+                                Select Goal
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Amount (₹)
+                            <span>*</span>
+                        </label>
+
+                        <input type="number" id="savingsAmount" min="0.01" step="0.01" placeholder="2000" required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Date
+                            <span>*</span>
+                        </label>
+
+                        <input type="text" id="savingsDate" maxlength="10" placeholder="DD-MM-YYYY" autocomplete="off"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label>
+                            Note
+                        </label>
+
+                        <textarea id="savingsNote" rows="3" placeholder="e.g. Saved from monthly allowance"></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button type="button" class="secondary-button" onclick="closeAddSavingsModal()">
+                        Cancel
+                    </button>
+
+
+                    <button type="submit" class="primary-button">
+
+                        <i class="fa-solid fa-piggy-bank"></i>
+
+                        Add Savings
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================================
+     DELETE CONFIRMATION
+========================================================= -->
+
+    <div class="modal-overlay hidden" id="deleteModal">
+
+        <div class="modal small-modal">
+
+
+            <div class="delete-icon">
+
+                <i class="fa-solid fa-trash"></i>
+
+            </div>
+
+
+            <h2>
+                Delete Expense?
+            </h2>
+
+
+            <p>
+                This expense will be permanently removed
+                from your Excel records.
+            </p>
+
+
+            <div class="form-actions">
+
+                <button type="button" class="secondary-button" id="cancelDelete">
+                    Cancel
+                </button>
+
+                <button type="button" class="danger-button" id="confirmDelete">
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+     TOAST
+========================================================= -->
+
+    <div class="toast hidden" id="toast">
+
+        <i class="fa-solid fa-circle-check" id="toastIcon"></i>
+
+        <span id="toastMessage">
+            Done
+        </span>
+
+    </div>
+
+
+
+    <!-- =========================================================
+     CHART.JS
+========================================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+
+    <!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

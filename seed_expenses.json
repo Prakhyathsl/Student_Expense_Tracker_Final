@@ -1,0 +1,572 @@
+[
+  {
+    "id": 1,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "",
+    "category": "Laptop",
+    "amount": 69000.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 2,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "2023-10-03",
+    "category": "College fees 1",
+    "amount": 28110.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 3,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "2024-05-18",
+    "category": "College fees 2",
+    "amount": 76905.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 4,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "2023-10-03",
+    "category": "Hostel fees",
+    "amount": 42000.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 5,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "2023-11-23",
+    "category": "Mess fees",
+    "amount": 2280.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 6,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "2023-12-16",
+    "category": "Mess fees",
+    "amount": 2800.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 7,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "2024-01-13",
+    "category": "Mess fees",
+    "amount": 2750.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 8,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "2024-02-15",
+    "category": "Mess fees",
+    "amount": 2750.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 9,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "2024-03-13",
+    "category": "Mess fees",
+    "amount": 2750.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 10,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "2024-04-15",
+    "category": "Mess fees",
+    "amount": 2470.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 11,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "2024-05-14",
+    "category": "Mess fees",
+    "amount": 2750.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 12,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "2024-06-14",
+    "category": "Mess fees",
+    "amount": 2750.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 13,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "2024-07-14",
+    "category": "Mess fees",
+    "amount": 2750.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 14,
+    "academic_year": "1st Year",
+    "semester": "1st Sem",
+    "date": "2024-08-07",
+    "category": "Mess fees",
+    "amount": 900.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 15,
+    "academic_year": "1st Year",
+    "semester": "2nd Sem",
+    "date": "2024-03-06",
+    "category": "Reg. fees",
+    "amount": 13950.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 16,
+    "academic_year": "1st Year",
+    "semester": "2nd Sem",
+    "date": "2024-08-07",
+    "category": "Internship",
+    "amount": 29700.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 17,
+    "academic_year": "2nd Year",
+    "semester": "3rd Sem",
+    "date": "2024-08-19",
+    "category": "Reg. fees",
+    "amount": 19500.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 18,
+    "academic_year": "2nd Year",
+    "semester": "3rd Sem",
+    "date": "2024-08-22",
+    "category": "Hostel fees",
+    "amount": 42000.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 19,
+    "academic_year": "2nd Year",
+    "semester": "3rd Sem",
+    "date": "2024-08-23",
+    "category": "College fees",
+    "amount": 104500.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 20,
+    "academic_year": "2nd Year",
+    "semester": "3rd Sem",
+    "date": "2024-09-14",
+    "category": "Mess fees",
+    "amount": 1700.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 21,
+    "academic_year": "2nd Year",
+    "semester": "3rd Sem",
+    "date": "2024-10-16",
+    "category": "Mess fees",
+    "amount": 3050.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 22,
+    "academic_year": "2nd Year",
+    "semester": "3rd Sem",
+    "date": "2024-11-05",
+    "category": "Association fees",
+    "amount": 300.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 23,
+    "academic_year": "2nd Year",
+    "semester": "4th Sem",
+    "date": "2025-02-10",
+    "category": "Reg. fees",
+    "amount": 2650.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 24,
+    "academic_year": "2nd Year",
+    "semester": "4th Sem",
+    "date": "",
+    "category": "Hostel fees",
+    "amount": 42000.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 25,
+    "academic_year": "2nd Year",
+    "semester": "4th Sem",
+    "date": "2025-04-12",
+    "category": "Mess fees",
+    "amount": 3000.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 26,
+    "academic_year": "2nd Year",
+    "semester": "4th Sem",
+    "date": "2025-05-05",
+    "category": "Exam fees",
+    "amount": 1680.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 27,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "2025-08-04",
+    "category": "Reg. fees",
+    "amount": 19000.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 28,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "",
+    "category": "College fees",
+    "amount": 104500.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 29,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "",
+    "category": "ASCEE fees",
+    "amount": 300.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 30,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "2025-09-19",
+    "category": "Makeup exam",
+    "amount": 480.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 31,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "2025-06-15",
+    "category": "Mess fees",
+    "amount": 3000.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 32,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "2025-07-21",
+    "category": "Mess fees",
+    "amount": 3150.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 33,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "2025-08-12",
+    "category": "Mess fees",
+    "amount": 945.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 34,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "2025-09-15",
+    "category": "Mess fees",
+    "amount": 2940.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 35,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "2025-10-14",
+    "category": "Mess fees",
+    "amount": 3150.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 36,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "2025-11-14",
+    "category": "Mess fees",
+    "amount": 3150.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 37,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "2025-12-13",
+    "category": "Mess fees",
+    "amount": 3150.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 38,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "2026-01-13",
+    "category": "Mess fees",
+    "amount": 3150.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 39,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "",
+    "category": "Hostel fees",
+    "amount": 42000.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 40,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "2025-11-22",
+    "category": "Trip",
+    "amount": 450.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 41,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "2025-12-12",
+    "category": "Patent fees",
+    "amount": 800.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 42,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "",
+    "category": "Assignment book",
+    "amount": 150.0,
+    "payment_method": "Cash",
+    "description": "30*5=150"
+  },
+  {
+    "id": 43,
+    "academic_year": "3rd Year",
+    "semester": "5th Sem",
+    "date": "2025-12-12",
+    "category": "Report print",
+    "amount": 210.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 44,
+    "academic_year": "3rd Year",
+    "semester": "6th Sem",
+    "date": "2026-01-19",
+    "category": "Reg. fees",
+    "amount": 2350.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 45,
+    "academic_year": "3rd Year",
+    "semester": "6th Sem",
+    "date": "2026-02-02",
+    "category": "Notes 200 page",
+    "amount": 100.0,
+    "payment_method": "Cash",
+    "description": "50*2=100"
+  },
+  {
+    "id": 46,
+    "academic_year": "3rd Year",
+    "semester": "6th Sem",
+    "date": "2026-02-11",
+    "category": "Mess fees",
+    "amount": 2310.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 47,
+    "academic_year": "3rd Year",
+    "semester": "6th Sem",
+    "date": "2026-03-13",
+    "category": "Mess fees",
+    "amount": 3150.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 48,
+    "academic_year": "3rd Year",
+    "semester": "6th Sem",
+    "date": "2026-04-15",
+    "category": "Mess fees",
+    "amount": 3150.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 49,
+    "academic_year": "3rd Year",
+    "semester": "6th Sem",
+    "date": "2026-05-14",
+    "category": "Mess fees",
+    "amount": 3150.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 50,
+    "academic_year": "3rd Year",
+    "semester": "6th Sem",
+    "date": "2026-06-15",
+    "category": "Mess fees",
+    "amount": 3150.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 51,
+    "academic_year": "4th Year",
+    "semester": "7th Sem",
+    "date": "2026-07-15",
+    "category": "College fees",
+    "amount": 104614.16,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 52,
+    "academic_year": "4th Year",
+    "semester": "7th Sem",
+    "date": "2026-07-20",
+    "category": "Reg. fees",
+    "amount": 8900.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 53,
+    "academic_year": "4th Year",
+    "semester": "7th Sem",
+    "date": "2026-07-21",
+    "category": "ASCEE fees",
+    "amount": 500.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 54,
+    "academic_year": "4th Year",
+    "semester": "7th Sem",
+    "date": "2026-07-25",
+    "category": "Hostel fees",
+    "amount": 42000.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 55,
+    "academic_year": "4th Year",
+    "semester": "7th Sem",
+    "date": "2026-07-21",
+    "category": "Mess fees",
+    "amount": 990.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 56,
+    "academic_year": "4th Year",
+    "semester": "7th Sem",
+    "date": "2026-08-15",
+    "category": "Mess fees",
+    "amount": 1430.0,
+    "payment_method": "Cash",
+    "description": ""
+  },
+  {
+    "id": 57,
+    "academic_year": "4th Year",
+    "semester": "7th Sem",
+    "date": "2026-07-29",
+    "category": "Bonafide certificate",
+    "amount": 30.0,
+    "payment_method": "Cash",
+    "description": ""
+  }
+]
