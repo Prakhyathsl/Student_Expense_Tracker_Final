@@ -22,6 +22,103 @@ let toastTimer = null;
 
 
 /* ============================================================
+   ACTION LOADING INDICATORS
+   Different visual loaders for Add / Edit / Delete / Save.
+============================================================ */
+
+function getSubmitButton(form) {
+    if (!form) return null;
+    return form.querySelector(
+        'button[type="submit"], input[type="submit"]'
+    );
+}
+
+function setActionLoading(button, type = "default", text = "Working...") {
+    if (!button || button.dataset.loading === "true") return;
+
+    button.dataset.loading = "true";
+    button.dataset.originalHtml = button.innerHTML;
+    button.dataset.originalDisabled = button.disabled ? "true" : "false";
+    button.disabled = true;
+    button.classList.add("action-loading", `action-loading-${type}`);
+
+    const loaders = {
+        add: `
+            <span class="loader loader-add" aria-hidden="true">
+                <span></span><span></span><span></span>
+            </span>
+            <span>${text}</span>
+        `,
+        edit: `
+            <span class="loader loader-edit" aria-hidden="true">
+                <span></span><span></span><span></span>
+            </span>
+            <span>${text}</span>
+        `,
+        delete: `
+            <span class="loader loader-delete" aria-hidden="true">
+                <span></span>
+            </span>
+            <span>${text}</span>
+        `,
+        save: `
+            <span class="loader loader-save" aria-hidden="true"></span>
+            <span>${text}</span>
+        `,
+        default: `
+            <span class="loader loader-default" aria-hidden="true"></span>
+            <span>${text}</span>
+        `
+    };
+
+    button.innerHTML = loaders[type] || loaders.default;
+    button.setAttribute("aria-busy", "true");
+}
+
+function stopActionLoading(button) {
+    if (!button || button.dataset.loading !== "true") return;
+
+    button.innerHTML =
+        button.dataset.originalHtml || button.innerHTML;
+
+    button.disabled =
+        button.dataset.originalDisabled === "true";
+
+    button.classList.remove(
+        "action-loading",
+        "action-loading-add",
+        "action-loading-edit",
+        "action-loading-delete",
+        "action-loading-save"
+    );
+
+    button.removeAttribute("aria-busy");
+
+    delete button.dataset.loading;
+    delete button.dataset.originalHtml;
+    delete button.dataset.originalDisabled;
+}
+
+function setDeleteIconLoading(button) {
+    if (!button || button.dataset.loading === "true") return;
+
+    button.dataset.loading = "true";
+    button.dataset.originalHtml = button.innerHTML;
+    button.dataset.originalDisabled =
+        button.disabled ? "true" : "false";
+
+    button.disabled = true;
+    button.classList.add("action-loading", "action-loading-delete");
+    button.innerHTML = `
+        <span class="loader loader-trash" aria-hidden="true">
+            <span></span>
+        </span>
+    `;
+    button.setAttribute("aria-busy", "true");
+}
+
+
+/* ============================================================
    APP LOADING INDICATOR
    Shows a visible loading screen while the initial API requests
    are loading, so the page never looks stuck.
@@ -1319,6 +1416,10 @@ function setupAddExpenseForm() {
             };
 
 
+            const submitButton = getSubmitButton(form);
+            setActionLoading(submitButton, "add", "Adding...");
+
+
             try {
 
                 const response =
@@ -1384,6 +1485,10 @@ function setupAddExpenseForm() {
                     error.message,
                     "error"
                 );
+
+            } finally {
+
+                stopActionLoading(submitButton);
 
             }
 
@@ -2373,6 +2478,11 @@ async function saveEditedExpense(
     };
 
 
+    const editForm = document.getElementById("editExpenseForm");
+    const submitButton = getSubmitButton(editForm);
+    setActionLoading(submitButton, "edit", "Saving...");
+
+
     try {
 
         const response =
@@ -2432,6 +2542,10 @@ async function saveEditedExpense(
             error.message,
             "error"
         );
+
+    } finally {
+
+        stopActionLoading(submitButton);
 
     }
 
@@ -2551,6 +2665,12 @@ async function deleteExpense() {
         expenseToDelete;
 
 
+    const confirmButton =
+        document.getElementById("confirmDelete");
+
+    setActionLoading(confirmButton, "delete", "Deleting...");
+
+
     try {
 
         const response =
@@ -2601,6 +2721,10 @@ async function deleteExpense() {
             error.message,
             "error"
         );
+
+    } finally {
+
+        stopActionLoading(confirmButton);
 
     }
 
@@ -4780,7 +4904,8 @@ function renderSavingsGoals() {
                                     class="savings-goal-menu"
                                     title="Delete goal"
                                     onclick="deleteSavingsGoal(
-                                        ${goal.id}
+                                        ${goal.id},
+                                        this
                                     )"
                                 >
 
@@ -5128,6 +5253,12 @@ document
             }
 
 
+            const submitButton = getSubmitButton(
+                document.getElementById("savingsGoalForm")
+            );
+            setActionLoading(submitButton, "save", "Creating...");
+
+
             try {
 
                 const response =
@@ -5204,6 +5335,10 @@ document
                 alert(
                     error.message
                 );
+
+            } finally {
+
+                stopActionLoading(submitButton);
 
             }
 
@@ -5370,6 +5505,12 @@ document
             }
 
 
+            const submitButton = getSubmitButton(
+                document.getElementById("addSavingsForm")
+            );
+            setActionLoading(submitButton, "add", "Adding...");
+
+
             try {
 
                 const response =
@@ -5446,6 +5587,10 @@ document
                 alert(
                     error.message
                 );
+
+            } finally {
+
+                stopActionLoading(submitButton);
 
             }
 
@@ -5582,7 +5727,8 @@ function renderSavingsHistory() {
                                     class="savings-history-delete"
                                     title="Delete"
                                     onclick="deleteSavings(
-                                        ${item.id}
+                                        ${item.id},
+                                        this
                                     )"
                                 >
 
@@ -5610,7 +5756,8 @@ function renderSavingsHistory() {
 ============================================================ */
 
 async function deleteSavings(
-    id
+    id,
+    button = null
 ) {
 
     const item =
@@ -5643,6 +5790,9 @@ async function deleteSavings(
         return;
 
     }
+
+
+    setDeleteIconLoading(button);
 
 
     try {
@@ -5685,6 +5835,10 @@ async function deleteSavings(
             error.message
         );
 
+    } finally {
+
+        stopActionLoading(button);
+
     }
 
 }
@@ -5695,7 +5849,8 @@ async function deleteSavings(
 ============================================================ */
 
 async function deleteSavingsGoal(
-    goalId
+    goalId,
+    button = null
 ) {
 
     const goal =
@@ -5725,6 +5880,9 @@ async function deleteSavingsGoal(
         return;
 
     }
+
+
+    setDeleteIconLoading(button);
 
 
     try {
@@ -5766,6 +5924,10 @@ async function deleteSavingsGoal(
         alert(
             error.message
         );
+
+    } finally {
+
+        stopActionLoading(button);
 
     }
 
