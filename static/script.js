@@ -2558,7 +2558,9 @@ async function loadDashboard() {
         );
 
     }
+  if (typeof loadMonthlyAllowance === "function") {
     await loadMonthlyAllowance();
+}
 
 }
 
