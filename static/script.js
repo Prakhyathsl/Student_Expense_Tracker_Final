@@ -135,11 +135,11 @@ async function initializeApplication() {
 
     setupDateInputs();
 
-    await loadExpenses();
-
-    await loadDashboard();
-
-    await loadSavings();
+    await Promise.all([
+        loadExpenses(),
+        loadDashboard(),
+        loadSavings()
+    ]);
 
     loadSettings();
 
@@ -2558,10 +2558,6 @@ async function loadDashboard() {
         );
 
     }
-  if (typeof loadMonthlyAllowance === "function") {
-    await loadMonthlyAllowance();
-}
-
 }
 
 
@@ -5983,47 +5979,6 @@ document
         }
     );
 
-
-/* ============================================================
-   NAVIGATION UPDATE
-============================================================ */
-
-const originalShowPage =
-    showPage;
-
-
-showPage =
-    function (pageId) {
-
-        originalShowPage(
-            pageId
-        );
-
-
-        if (
-            pageId ===
-            "savings"
-        ) {
-
-            loadSavings();
-
-        }
-
-    };
-
-
-/* ============================================================
-   INITIAL SAVINGS LOAD
-============================================================ */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        loadSavings();
-
-    }
-);
 
 /* ============================================================
    CLOSE ALL MODALS ON PAGE LOAD
