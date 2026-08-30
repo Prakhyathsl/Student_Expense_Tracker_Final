@@ -22,6 +22,110 @@ let toastTimer = null;
 
 
 /* ============================================================
+   APP LOADING INDICATOR
+   Shows a visible loading screen while the initial API requests
+   are loading, so the page never looks stuck.
+============================================================ */
+
+let appLoadingOverlay = null;
+
+function createAppLoadingOverlay() {
+
+    if (appLoadingOverlay) {
+        return;
+    }
+
+    const style = document.createElement("style");
+    style.id = "app-loading-style";
+    style.textContent = `
+        #appLoadingOverlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(248, 250, 255, 0.94);
+            backdrop-filter: blur(4px);
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        #appLoadingOverlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .app-loading-card {
+            min-width: 220px;
+            padding: 28px 30px;
+            border-radius: 18px;
+            background: #ffffff;
+            box-shadow: 0 16px 50px rgba(31, 41, 55, 0.16);
+            text-align: center;
+        }
+
+        .app-loading-spinner {
+            width: 42px;
+            height: 42px;
+            margin: 0 auto 16px;
+            border: 4px solid #e9d5ff;
+            border-top-color: #7c3cff;
+            border-radius: 50%;
+            animation: appLoadingSpin 0.8s linear infinite;
+        }
+
+        .app-loading-title {
+            margin: 0;
+            color: #172554;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .app-loading-text {
+            margin: 6px 0 0;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @keyframes appLoadingSpin {
+            to { transform: rotate(360deg); }
+        }
+    `;
+
+    document.head.appendChild(style);
+
+    appLoadingOverlay = document.createElement("div");
+    appLoadingOverlay.id = "appLoadingOverlay";
+    appLoadingOverlay.innerHTML = `
+        <div class="app-loading-card" role="status" aria-live="polite">
+            <div class="app-loading-spinner" aria-hidden="true"></div>
+            <p class="app-loading-title">Loading your expense tracker</p>
+            <p class="app-loading-text">Please wait while your data is loaded...</p>
+        </div>
+    `;
+
+    document.body.appendChild(appLoadingOverlay);
+}
+
+function showAppLoading() {
+    createAppLoadingOverlay();
+    if (appLoadingOverlay) {
+        appLoadingOverlay.classList.remove("hidden");
+    }
+}
+
+function hideAppLoading() {
+    if (appLoadingOverlay) {
+        appLoadingOverlay.classList.add("hidden");
+    }
+}
+
+
+
+/* ============================================================
    CATEGORY COLORS
    Keep chart and legend colors synchronized.
 ============================================================ */
@@ -105,6 +209,8 @@ document.addEventListener(
 
 async function initializeApplication() {
 
+    showAppLoading();
+
     setupNavigation();
 
     setupDashboardButtons();
@@ -135,13 +241,21 @@ async function initializeApplication() {
 
     setupDateInputs();
 
-    await Promise.all([
-        loadExpenses(),
-        loadDashboard(),
-        loadSavings()
-    ]);
+    try {
 
-    loadSettings();
+        await Promise.all([
+            loadExpenses(),
+            loadDashboard(),
+            loadSavings()
+        ]);
+
+        loadSettings();
+
+    } finally {
+
+        hideAppLoading();
+
+    }
 
 }
 
