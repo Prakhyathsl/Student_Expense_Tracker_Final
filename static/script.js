@@ -340,11 +340,13 @@ async function initializeApplication() {
 
     try {
 
-        await Promise.all([
-            loadExpenses(),
-            loadDashboard(),
-            loadSavings()
-        ]);
+        // Load expenses FIRST. Dashboard Cash Spending is derived from
+        // this freshly loaded list, so do not load both in parallel.
+        // Parallel loading could make the dashboard read an empty/old
+        // allExpenses array and temporarily show ₹0 or stale Cash data.
+        await loadExpenses();
+        await loadDashboard();
+        await loadSavings();
 
         loadSettings();
 
@@ -609,7 +611,10 @@ async function loadExpenses() {
 
         const response =
             await fetch(
-                "/api/expenses"
+                "/api/expenses",
+                {
+                    cache: "no-store"
+                }
             );
 
 
@@ -2735,7 +2740,12 @@ async function deleteExpense() {
    DASHBOARD
 ============================================================ */
 
+// Prevent an older dashboard response from overwriting newer data.
+let dashboardRequestId = 0;
+
 async function loadDashboard() {
+
+    const requestId = ++dashboardRequestId;
 
     try {
 
@@ -2767,6 +2777,12 @@ async function loadDashboard() {
                 stats.error
             );
 
+        }
+
+        // If another refresh started after this one, ignore this older
+        // response so stale Cash Spending cannot overwrite fresh data.
+        if (requestId !== dashboardRequestId) {
+            return;
         }
 
 
@@ -2916,32 +2932,24 @@ function updateDashboardCards(
     const paymentTotals =
         stats.payment_totals || {};
 
-    // Calculate Cash directly from the current expense list as the
-    // source of truth. This prevents the Cash card from becoming
-    // stale when the stats response is cached or uses a slightly
-    // different payment-method spelling/capitalization.
-    const cashFromExpenses =
+    // Cash Spending must always come from the same current dataset
+    // used by the dashboard. Match the payment method case-insensitively
+    // and ignore accidental spaces.
+    const cash =
         Array.isArray(allExpenses)
             ? allExpenses.reduce(function (sum, expense) {
                 const method = String(
                     expense.payment_method || ""
                 ).trim().toLowerCase();
 
-                return method === "cash"
-                    ? sum + (Number(expense.amount) || 0)
-                    : sum;
+                if (method !== "cash") {
+                    return sum;
+                }
+
+                const amount = Number(expense.amount);
+                return sum + (Number.isFinite(amount) ? amount : 0);
             }, 0)
-            : 0;
-
-    const cashFromStats =
-        Number(paymentTotals["Cash"] || 0);
-
-    // Prefer the freshly loaded expense data. If it is not available,
-    // fall back to the backend stats value.
-    const cash =
-        Array.isArray(allExpenses)
-            ? cashFromExpenses
-            : cashFromStats;
+            : Number(paymentTotals["Cash"] || 0);
 
     const total =
         Number(
