@@ -611,7 +611,7 @@ async function loadExpenses() {
 
         const response =
             await fetch(
-                "/api/expenses",
+                "/api/expenses?_=" + Date.now(),
                 {
                     cache: "no-store"
                 }
@@ -2751,7 +2751,7 @@ async function loadDashboard() {
 
         const response =
             await fetch(
-                "/api/stats",
+                "/api/stats?_=" + Date.now(),
                 {
                     cache: "no-store"
                 }
@@ -2932,24 +2932,23 @@ function updateDashboardCards(
     const paymentTotals =
         stats.payment_totals || {};
 
-    // Cash Spending must always come from the same current dataset
-    // used by the dashboard. Match the payment method case-insensitively
-    // and ignore accidental spaces.
-    const cash =
-        Array.isArray(allExpenses)
+    // Cash Spending is supplied by the server from the current
+    // expense records. The server calculation is case-insensitive
+    // and therefore also handles older Excel rows safely.
+    const cash = Number.isFinite(Number(stats.cash_spending))
+        ? Number(stats.cash_spending)
+        : (Array.isArray(allExpenses)
             ? allExpenses.reduce(function (sum, expense) {
                 const method = String(
                     expense.payment_method || ""
                 ).trim().toLowerCase();
 
-                if (method !== "cash") {
-                    return sum;
-                }
+                if (method !== "cash") return sum;
 
                 const amount = Number(expense.amount);
                 return sum + (Number.isFinite(amount) ? amount : 0);
             }, 0)
-            : Number(paymentTotals["Cash"] || 0);
+            : Number(paymentTotals["Cash"] || 0));
 
     const total =
         Number(
